@@ -1,0 +1,5 @@
+{:deps {clj-time {:mvn/version "0.14.2"}
+        org.clojure/core.async {:mvn/version "0.4.500"}
+        com.fasterxml.jackson.core/jackson-core {:mvn/version "2.9.9"}
+        fn-fx/fn-fx-openjfx11 {:mvn/version "0.5.0-SNAPSHOT"}
+        cljfx {:git/url "https://github.com/cljfx/cljfx" :sha "1273f72d48061cef19302bef41803e7f66010f51"}}}
