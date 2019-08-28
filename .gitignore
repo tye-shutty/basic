@@ -3,3 +3,4 @@
 !*.clj
 !deps.edn
 !.bash_profile
+!*.css

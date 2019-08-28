@@ -1,0 +1,21 @@
+GridPane {
+ -fx-grid-lines-visible: false;
+ -fx-hgap: 0;
+ -fx-vgap: 0;
+ -fx-alignment: top-left;
+}
+ScrollPane {
+ -fx-cursor: crosshair;
+ -fx-opacity: 1;
+ -fx-rotate: 0;
+ -fx-scale-x: 1;
+ -fx-translate-x: 0;
+ -fx-blend-mode: exclusion;
+ -fx-fit-to-height: true;
+ -fx-fit-to-width: true;
+}
+TitlePane {
+ -fx-underline: true;
+}
+* {
+}

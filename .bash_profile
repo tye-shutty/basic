@@ -16,9 +16,6 @@ export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 export TERM="xterm-color"
 export PS1='\[\e[0;33m\]\u\[\e[0m\]@\[\e[0;32m\]\h\[\e[0m\]:\[\e[0;36m\]\w\[\e[0m\]\$ '
-function tyehello(){
-    echo tye says $1
-}
 function gitrepo(){
     git clone git@github.com:tye-shutty/$1.git &&
     cd $1 &&
@@ -26,13 +23,23 @@ function gitrepo(){
     git remote -v &&
     cd -
 }
+function applygitrepo(){
+ while read i; do
+  if [ -d $i ]; then
+  echo "already installed $i"
+ else
+  echo "installing $i"
+  gitrepo $i
+ fi
+ done
+}
 function masterrebase(){
     git branch -l &&
     git fetch upstream &&
     git diff remotes/upstream/master master &&
     git checkout master &&
     git rebase upstream/master &&
-    echo New Diff: && 
+    echo New Diff: &&
     git diff remotes/upstream/master master
 }
 function nch(){
@@ -43,18 +50,39 @@ function nch(){
         cd -
     done
 }
+function gitstatusall(){
+ for i in $(ls -d */); do
+  cd $i &&
+  basename -s .git `git config --get remote.origin.url` &&
+  basename -s .git `git config --get remote.origin.url` >> ~/repolist.txt &&
+  git status &&
+  echo ---------------------------------------- &&
+  cd - &>/dev/null
+ done
+}
+function gitdiffall(){
+ for i in $(ls -d */); do
+  cd $i &&
+  basename -s .git `git config --get remote.origin.url` &&
+  basename -s .git `git config --get remote.origin.url` >> ~/repolist.txt &&
+  git diff &&
+  echo ---------------------------------------- &&
+  cd - &>/dev/null
+ done
+}
 function rebaseall(){
-    for i in $(ls -d */); do
-        cd i &&
-        masterrebase &&
-        cd -
+    while read i; do
+        cd /Users/tshutty/codebase/$i &&
+        echo ---------------------------------------- &&
+        basename -s .git `git config --get remote.origin.url` &&
+        masterrebase
     done
 }
 function xf(){
     find "$1" -iname "$2" -prune -o -iname "$3" 2>&1 | grep -Ev "(Not a directory|Permission denied|Operation not permitted)"
 }
 function rf(){
-	find . -depth 1 -name "$1" 2> /dev/null 
+	find . -depth 1 -name "$1" 2> /dev/null
 }
 function shrink(){
     OIFS="$IFS"
@@ -116,4 +144,3 @@ function dgray(){
     done
     IFS="$OIFS"
 }
-
